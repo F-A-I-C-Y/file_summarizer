@@ -3,3 +3,4 @@ pyperclip
 docx
 PyPDF2
 google-generativeai
+exceptions
