@@ -3,7 +3,6 @@ import streamlit as st
 import google.generativeai as genai
 import pyperclip
 import docx
-import exceptions
 from PyPDF2 import PdfReader
 
 
@@ -23,7 +22,7 @@ def extract_text_from_docx(file):
 
 
 def main():
-  api_key = 'AIzaSyDCI_xeL7HhthSwbGNEkbas6fgAaRZhR2s'
+  api_key = 'API KEY'
   genai.configure(api_key=api_key)
 
   st.title("PDF & DOCX Summarizer")
