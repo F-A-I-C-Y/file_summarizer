@@ -3,6 +3,7 @@ import streamlit as st
 import google.generativeai as genai
 import pyperclip
 import docx
+import exceptions
 from PyPDF2 import PdfReader
 
 
