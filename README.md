@@ -1,19 +1,20 @@
-# 🎈 Blank app template
+# PDF & DOCX Summarizer Application
 
-A simple Streamlit app template for you to modify!
+## Overview
+This Streamlit-based application allows users to upload PDF or DOCX files and receive a summarized version of the document's text. It uses Google Generative AI to generate summaries from the extracted text of the uploaded file. Users can also copy the generated summary directly to the clipboard.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
+## Features
+- **File Upload**: Supports both PDF and DOCX file uploads.
+- **Text Extraction**: Extracts text from the uploaded PDF or DOCX files.
+- **AI-Powered Summarization**: Uses Google Generative AI (via `google.generativeai`) to generate summaries of the extracted text.
+- **Clipboard Copying**: Allows users to copy the generated summary to their clipboard with one click.
 
-### How to run it on your own machine
+## Prerequisites
 
-1. Install the requirements
-
-   ```
-   $ pip install -r requirements.txt
-   ```
-
-2. Run the app
-
-   ```
-   $ streamlit run streamlit_app.py
-   ```
+To run this application, you will need:
+- **Python 3.7 or later**
+- **Streamlit**: The web framework used for the UI.
+- **Google Generative AI API Key**: Needed to access the summarization service.
+- **PyPDF2**: For PDF text extraction.
+- **python-docx**: For DOCX text extraction.
+- **Pyperclip**: For clipboard functionality.
