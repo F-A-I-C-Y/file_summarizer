@@ -1,5 +1,5 @@
 streamlit
 pyperclip
-docx
+python-docx
 PyPDF2
 google-generativeai
