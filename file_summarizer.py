@@ -2,7 +2,7 @@ import os
 import streamlit as st
 import google.generativeai as genai
 import pyperclip
-import python-docx
+import docx
 from PyPDF2 import PdfReader
 
 # Extract text from PDF
