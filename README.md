@@ -1,4 +1,5 @@
 # PDF & DOCX Summarizer Application
+https://filesummarizer.streamlit.app/
 
 ## Overview
 This Streamlit-based application allows users to upload PDF or DOCX files and receive a summarized version of the document's text. It uses Google Generative AI to generate summaries from the extracted text of the uploaded file. Users can also copy the generated summary directly to the clipboard.
