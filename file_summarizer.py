@@ -5,7 +5,7 @@ import pyperclip
 import docx
 from PyPDF2 import PdfReader
 
-
+# Extract text from PDF
 def extract_text_from_pdf(file):
     reader = PdfReader(file)
     pdf_text = ""
@@ -13,6 +13,8 @@ def extract_text_from_pdf(file):
         pdf_text += page.extract_text()
     return pdf_text
 
+
+# Extract text from DOCX
 def extract_text_from_docx(file):
     doc = docx.Document(file)
     doc_text = ""
@@ -20,15 +22,23 @@ def extract_text_from_docx(file):
         doc_text += paragraph.text + "\n"
     return doc_text
 
-
 def main():
-  api_key = 'API KEY'
+  api_key = os.getenv('AIzaSyDCI_xeL7HhthSwbGNEkbas6fgAaRZhR2s')
   genai.configure(api_key=api_key)
 
+  # Streamlit app title
   st.title("PDF & DOCX Summarizer")
 
+  # File upload option
   uploaded_file = st.file_uploader("Choose a PDF or DOCX file", type=["pdf","docx"])
 
+  # Initialize session state variables for generated summary and copy status
+  if "generated_summary" not in st.session_state:
+    st.session_state.generated_summary = ""
+  if "copy_status" not in st.session_state:
+    st.session_state.copy_status = ""
+
+  # File extraction logic
   if uploaded_file is not None:
     file_extension = os.path.splitext(uploaded_file.name)[1].lower()
 
@@ -43,12 +53,11 @@ def main():
       if extracted_text.strip():
         prompt = f"Summarize the following text: {extracted_text}"
 
-
         try:
-          model = genai.GenerativeModel("gemini-1.5-flash")
-          response = model.generate_content(prompt)
-          summary = response.text
-          
+          # Call Google Generative AI to summarize the extracted text
+          response = genai.generate_text(model="gemini-1.5-flash", prompt=prompt)
+          summary = response.result  # Use correct method to get the summary
+                    
           st.session_state.generated_summary = summary
           st.session_state.copy_status = "Copy summary to Clipboard"
 
@@ -58,12 +67,22 @@ def main():
       else:
         st.warning("The uploaded file is empty.")
 
-    if "generated_summary" in st.session_state:
-      st.subheader("Generated Summary:")
-      summary_text_area = st.text_area("Generated Summary:",st.session_state.generated_summary, height=400,key="summary_content")
-      if st.button("Copy summary to Clipboard"):
-        pyperclip.copy(st.session_state.generated_summary)
-        st.success("Summary copied to clipboard!")
+# Generate summary button
+        if st.button("Generate Summary"):
+            if extracted_text.strip():
+                prompt = f"Summarize the following text: {extracted_text}"
+
+                
+
+        # Display the generated summary
+        if st.session_state.generated_summary:
+            st.subheader("Generated Summary:")
+            summary_text_area = st.text_area("Generated Summary:", st.session_state.generated_summary, height=400, key="summary_content")
+            
+            # Button to copy the summary to the clipboard
+            if st.button("Copy summary to Clipboard"):
+                pyperclip.copy(st.session_state.generated_summary)
+                st.success("Summary copied to clipboard!")
 
 if __name__ == "__main__":
-  main()
+    main()
